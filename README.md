@@ -9,3 +9,4 @@ Also I had a project for this class that can be found [here](https://github.com/
 2. [Seminar 2](https://v4n00.github.io/Multimedia/Seminar%202/index.html)
 3. [Seminar 3](https://v4n00.github.io/Multimedia/Seminar%203/index.html)
 4. [Seminar 4](https://v4n00.github.io/Multimedia/Seminar%204/index.html)
+5. [Project](https://github.com/v4n00/interactive-soundboard)
