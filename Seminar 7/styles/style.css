@@ -1,0 +1,102 @@
+body {
+    background-color: azure;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.keyboard { 
+    height: 470px;
+    background-color: #333;
+    border-radius: 10px;
+    box-shadow: 10px 10px 10px #222;
+}
+.keyboard .keypad {
+    margin: 20px;
+    display: flex;
+    background-color: #222;
+    padding: 20px 3px 5px 3px;
+    border-radius: 5px;
+}
+
+.key.white {
+    height: 230px;
+    width: 38px;
+    background-color: white;
+    background: linear-gradient(#fff 96%, #eee 4%);
+    border-radius: 5px;
+    border: 1px solid #000
+}
+
+.key.black {
+    height: 150px;
+    z-index: 2;
+    width: 26px;
+    margin: 0 -13px 0 -13px;
+    background-color: black;
+    border-radius: 0 0 4px 4px;
+}
+
+.key {
+    position: relative;
+}
+
+.key span {
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    bottom: 10px;
+    font-size: 12px;
+}
+
+.key.white span {
+    color: #333;
+}
+
+.key.black span {
+    color: #eee;
+}
+
+header {
+    display: flex;
+}
+
+header h3 {
+    font-size: 2rem;
+    color: #eee;
+    padding: 20px;
+}
+
+.pad-container {
+    margin: 20px;
+}
+
+.pad-row {
+    display: flex;
+}
+.pad {
+    border-radius: 4px;
+    margin: 2px;
+    height: 50px;
+    width: 50px;
+    background-color: #B14250;
+    border: 1px solid #222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+}
+
+
+.pad-row:nth-child(even) .pad:nth-child(odd),
+.pad-row:nth-child(odd) .pad:nth-child(even)
+{
+    background-color: #1F374E;
+} 
+
+.activeKey {
+    background-color: pink;
+}
