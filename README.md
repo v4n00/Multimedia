@@ -10,3 +10,5 @@ Also I had a project for this class that can be found [here](https://github.com/
 3. [Seminar 3](https://v4n00.github.io/Multimedia/Seminar%203/index.html)
 4. [Seminar 4](https://v4n00.github.io/Multimedia/Seminar%204/index.html)
 5. [Seminar 5](https://v4n00.github.io/Multimedia/Seminar%205/index.html)
+6. [Seminar 6](https://v4n00.github.io/Multimedia/Seminar%206/index.html)
+7. [Seminar 7](https://v4n00.github.io/Multimedia/Seminar%207/index.html)

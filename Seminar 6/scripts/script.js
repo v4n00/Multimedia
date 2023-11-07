@@ -5,7 +5,7 @@ window.onload = () => {
     let clicked = document.getElementById('clicked');
 
     let image = new Image();
-    image.src = '../img/car.png';
+    image.src = './img/bliss.png';
 
     image.onload = function() {
         canvas.width = image.width;
@@ -25,7 +25,7 @@ window.onload = () => {
 
         let color = `rgba(${red}, ${green}, ${blue}, 1)`;
         destination.style.backgroundColor = color;
-
+        destination.value = color;
     }
 
     canvas.addEventListener('mousemove', (e) => {

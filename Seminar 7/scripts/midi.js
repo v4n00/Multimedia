@@ -10,11 +10,11 @@ window.onload = function() {
     
     function initialize() {
         for(let i = 36; i <= 96; i++) {
-            let noteName = document.querySelector(`[data-midi-code="${i}"]`).getAttribute('data-note');
-            let audio = new Audio(`../notes/${noteName}.mp3`);
+            let key = document.querySelector(`[data-midi-code="${i}"]`);
+            let noteName = key.getAttribute('data-note');
+            let audio = new Audio(`./notes/${noteName}.mp3`);
             pianoSounds[i] = audio;
-
-            oscillatorSounds[i] = createOscillator(i);
+            // oscillatorSounds[i] = createOscillator(i);
         }
     }
 
@@ -42,24 +42,44 @@ window.onload = function() {
         pianoSounds[midiCode].play();
     }
     function stopPianoNote(midiCode) {
-        pianoSounds[midiCode].stop();
+        // pianoSounds[midiCode].pause();
     }
     
     window.addEventListener('keydown', (e) => {
         let key = e.key;
         if(emulatedKeys.hasOwnProperty(key)) {
-            // playPianoNote(emulatedKeys[key]);
-            playOscillator(emulatedKeys[key]);
+            playPianoNote(emulatedKeys[key]);
+            // playOscillator(emulatedKeys[key]);
+
+            // added by me
+            let clap = document.querySelector(`[data-midi-code="${emulatedKeys[key]}"`);
+            clap.classList.add('activeKey');
         }
     })
 
     window.addEventListener('keyup', (e) => {
         let key = e.key;
         if(emulatedKeys.hasOwnProperty(key)) {
-            // stopPianoNote(emulatedKeys[key]);
-            stopOscillator(emulatedKeys[key]);
+            stopPianoNote(emulatedKeys[key]);
+            // stopOscillator(emulatedKeys[key]);
+
+            // added by me
+            let clap = document.querySelector(`[data-midi-code="${emulatedKeys[key]}"`);
+            clap.classList.remove('activeKey');
         }
     })
 
     initialize();
+
+    // added by me
+    document.getElementById('stop-sound').addEventListener('click', () => {
+        oscillatorSounds.forEach((osc) => {
+            if(osc != null)
+                osc.context.suspend();
+        });
+        pianoSounds.forEach((note) => {
+            if(note != null)
+                note.pause();
+        })
+    })
 }
