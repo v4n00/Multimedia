@@ -1,190 +1,186 @@
 <!DOCTYPE html>
 <html>
+	<head>
+		<style>
+			body {
+				background-color: azure;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				height: 100vh;
+				margin: 0;
+			}
 
-<head>
-    <style>
-        body {
-            background-color: azure;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-        }
-        
-        .keyboard { 
-            height: 470px;
-            background-color: #333;
-            border-radius: 10px;
-            box-shadow: 10px 10px 10px #222;
-        }
-        .keyboard .keypad {
-            margin: 20px;
-            display: flex;
-            background-color: #222;
-            padding: 20px 3px 5px 3px;
-            border-radius: 5px;
-        }
-        
-        .key.white {
-            height: 230px;
-            width: 38px;
-            background-color: white;
-            background: linear-gradient(#fff 96%, #eee 4%);
-            border-radius: 5px;
-            border: 1px solid #000
-        }
-        
-        .key.black {
-            height: 150px;
-            z-index: 2;
-            width: 26px;
-            margin: 0 -13px 0 -13px;
-            background-color: black;
-            border-radius: 0 0 4px 4px;
-        }
-        
-        .key {
-            position: relative;
-        }
-        
-        .key span {
-            text-align: center;
-            width: 100%;
-            position: absolute;
-            bottom: 10px;
-            font-size: 12px;
-        }
-        
-        .key.white span {
-            color: #333;
-        }
-        
-        .key.black span {
-            color: #eee;
-        }
-        
-        header {
-            display: flex;
-        }
-        
-        header h3 {
-            font-size: 2rem;
-            color: #eee;
-            padding: 20px;
-        }
-        
-        .pad-container {
-            margin: 20px;
-        }
-        
-        .pad-row {
-            display: flex;
-        }
-        .pad {
-            border-radius: 4px;
-            margin: 2px;
-            height: 50px;
-            width: 50px;
-            background-color: #B14250;
-            border: 1px solid #222;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-        }
-        
-        
-        .pad-row:nth-child(even) .pad:nth-child(odd),
-        .pad-row:nth-child(odd) .pad:nth-child(even)
-        {
-            background-color: #1F374E;
-        } 
-        
-        .activeKey {
-            background-color: pink;
-        }
-    </style>
-</head>
+			.keyboard {
+				height: 470px;
+				background-color: #333;
+				border-radius: 10px;
+				box-shadow: 10px 10px 10px #222;
+			}
+			.keyboard .keypad {
+				margin: 20px;
+				display: flex;
+				background-color: #222;
+				padding: 20px 3px 5px 3px;
+				border-radius: 5px;
+			}
 
-<body>
-    <div class="keyboard">
-        <header>
-            <div class="column">
-                <h3>Virtual keyboard</h3>
-            </div>            
-        </header>
-        <div class="keypad">
-            <!-- OCTAVE 2 -->
-            <div class="key white" data-midi-code="36" data-note="C2"><span>C2</span></div>            
-            <div class="key black" data-midi-code="37" data-note="Db2"><span>C#2</span></div>
-            <div class="key white" data-midi-code="38" data-note="D2"><span>D2</span></div>
-            <div class="key black" data-midi-code="39" data-note="Eb2"><span>Eb2</span></div>
-            <div class="key white" data-midi-code="40" data-note="E2"><span>E2</span></div>
-            <div class="key white" data-midi-code="41" data-note="F2"><span>F2</span></div>
-            <div class="key black" data-midi-code="42" data-note="Gb2"><span>F#2</span></div>
-            <div class="key white" data-midi-code="43" data-note="G2"><span>G2</span></div>
-            <div class="key black" data-midi-code="44" data-note="Ab2"><span>G#2</span></div>
-            <div class="key white" data-midi-code="45" data-note="A2"><span>A3</span></div>
-            <div class="key black" data-midi-code="46" data-note="Bb2"><span>Bb2</span></div>
-            <div class="key white" data-midi-code="47" data-note="B2"><span>B2</span></div>
-            
-            <div class="key white" data-midi-code="48" data-note="C3"><span>C3</span></div>
-            <div class="key black" data-midi-code="49" data-note="Db3"><span>C#3</span></div>
-            <div class="key white" data-midi-code="50" data-note="D3"><span>D3</span></div>
-            <div class="key black" data-midi-code="51" data-note="Eb3"><span>Eb3</span></div>
-            <div class="key white" data-midi-code="52" data-note="E3"><span>E3</span></div>
-            <div class="key white" data-midi-code="53" data-note="F3"><span>F3</span></div>
-            <div class="key black" data-midi-code="54" data-note="Gb3"><span>F#3</span></div>
-            <div class="key white" data-midi-code="55" data-note="G3"><span>G3</span></div>
-            <div class="key black" data-midi-code="56" data-note="Ab3"><span>G#3</span></div>
-            <div class="key white" data-midi-code="57" data-note="A3"><span>A3</span></div>
-            <div class="key black" data-midi-code="58" data-note="Bb3"><span>Bb3</span></div>
-            <div class="key white" data-midi-code="59" data-note="B3"><span>B3</span></div>
-            
-            <div class="key white" data-midi-code="60" data-note="C4"><span>C4</span></div>
-            <div class="key black" data-midi-code="61" data-note="Db4"><span>C#4</span></div>
-            <div class="key white" data-midi-code="62" data-note="D4"><span>D4</span></div>
-            <div class="key black" data-midi-code="63" data-note="Eb4"><span>Eb4</span></div>
-            <div class="key white" data-midi-code="64" data-note="E4"><span>E4</span></div>
-            <div class="key white" data-midi-code="65" data-note="F4"><span>F4</span></div>
-            <div class="key black" data-midi-code="66" data-note="Gb4"><span>F#4</span></div>
-            <div class="key white" data-midi-code="67" data-note="G4"><span>G4</span></div>
-            <div class="key black" data-midi-code="68" data-note="Ab4"><span>G#4</span></div>
-            <div class="key white" data-midi-code="69" data-note="A4"><span>A4</span></div>
-            <div class="key black" data-midi-code="70" data-note="Bb4"><span>Bb4</span></div>
-            <div class="key white" data-midi-code="71" data-note="B4"><span>B4</span></div>
-            
-            <div class="key white" data-midi-code="72" data-note="C5"><span>C5</span></div>
-            <div class="key black" data-midi-code="73" data-note="Db5"><span>C#5</span></div>
-            <div class="key white" data-midi-code="74" data-note="D5"><span>D5</span></div>
-            <div class="key black" data-midi-code="75" data-note="Eb5"><span>Eb5</span></div>
-            <div class="key white" data-midi-code="76" data-note="E5"><span>E5</span></div>
-            <div class="key white" data-midi-code="77" data-note="F5"><span>F5</span></div>
-            <div class="key black" data-midi-code="78" data-note="Gb5"><span>F#5</span></div>
-            <div class="key white" data-midi-code="79" data-note="G5"><span>G5</span></div>
-            <div class="key black" data-midi-code="80" data-note="Ab5"><span>G#5</span></div>
-            <div class="key white" data-midi-code="81" data-note="A5"><span>A5</span></div>
-            <div class="key black" data-midi-code="82" data-note="Bb5"><span>Bb5</span></div>
-            <div class="key white" data-midi-code="83" data-note="B5"><span>B5</span></div>
-            
-            <div class="key white" data-midi-code="84" data-note="C6"><span>C6</span></div> 
-            <div class="key black" data-midi-code="85" data-note="Db6"><span>C#6</span></div>
-            <div class="key white" data-midi-code="86" data-note="D6"><span>D6</span></div>
-            <div class="key black" data-midi-code="87" data-note="Eb6"><span>Eb6</span></div>
-            <div class="key white" data-midi-code="88" data-note="E6"><span>E6</span></div>
-            <div class="key white" data-midi-code="89" data-note="F6"><span>F6</span></div>
-            <div class="key black" data-midi-code="90" data-note="Gb6"><span>F#6</span></div>
-            <div class="key white" data-midi-code="91" data-note="G6"><span>G6</span></div>
-            <div class="key black" data-midi-code="92" data-note="Ab6"><span>G#6</span></div>
-            <div class="key white" data-midi-code="93" data-note="A6"><span>A6</span></div>
-            <div class="key black" data-midi-code="94" data-note="Bb6"><span>Bb6</span></div>
-            <div class="key white" data-midi-code="95" data-note="B6"><span>B6</span></div>
-            
-            <div class="key white" data-midi-code="96" data-note="C7"><span>C7</span></div> 
-        </div>
-    </div>
-</body>
+			.key.white {
+				height: 230px;
+				width: 38px;
+				background-color: white;
+				background: linear-gradient(#fff 96%, #eee 4%);
+				border-radius: 5px;
+				border: 1px solid #000;
+			}
 
+			.key.black {
+				height: 150px;
+				z-index: 2;
+				width: 26px;
+				margin: 0 -13px 0 -13px;
+				background-color: black;
+				border-radius: 0 0 4px 4px;
+			}
+
+			.key {
+				position: relative;
+			}
+
+			.key span {
+				text-align: center;
+				width: 100%;
+				position: absolute;
+				bottom: 10px;
+				font-size: 12px;
+			}
+
+			.key.white span {
+				color: #333;
+			}
+
+			.key.black span {
+				color: #eee;
+			}
+
+			header {
+				display: flex;
+			}
+
+			header h3 {
+				font-size: 2rem;
+				color: #eee;
+				padding: 20px;
+			}
+
+			.pad-container {
+				margin: 20px;
+			}
+
+			.pad-row {
+				display: flex;
+			}
+			.pad {
+				border-radius: 4px;
+				margin: 2px;
+				height: 50px;
+				width: 50px;
+				background-color: #b14250;
+				border: 1px solid #222;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				color: white;
+				font-weight: 600;
+			}
+
+			.pad-row:nth-child(even) .pad:nth-child(odd),
+			.pad-row:nth-child(odd) .pad:nth-child(even) {
+				background-color: #1f374e;
+			}
+
+			.activeKey {
+				background-color: pink;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="keyboard">
+			<header>
+				<div class="column">
+					<h3>Virtual keyboard</h3>
+				</div>
+			</header>
+			<div class="keypad">
+				<!-- OCTAVE 2 -->
+				<div class="key white" data-midi-code="36" data-note="C2"><span>C2</span></div>
+				<div class="key black" data-midi-code="37" data-note="Db2"><span>C#2</span></div>
+				<div class="key white" data-midi-code="38" data-note="D2"><span>D2</span></div>
+				<div class="key black" data-midi-code="39" data-note="Eb2"><span>Eb2</span></div>
+				<div class="key white" data-midi-code="40" data-note="E2"><span>E2</span></div>
+				<div class="key white" data-midi-code="41" data-note="F2"><span>F2</span></div>
+				<div class="key black" data-midi-code="42" data-note="Gb2"><span>F#2</span></div>
+				<div class="key white" data-midi-code="43" data-note="G2"><span>G2</span></div>
+				<div class="key black" data-midi-code="44" data-note="Ab2"><span>G#2</span></div>
+				<div class="key white" data-midi-code="45" data-note="A2"><span>A3</span></div>
+				<div class="key black" data-midi-code="46" data-note="Bb2"><span>Bb2</span></div>
+				<div class="key white" data-midi-code="47" data-note="B2"><span>B2</span></div>
+
+				<div class="key white" data-midi-code="48" data-note="C3"><span>C3</span></div>
+				<div class="key black" data-midi-code="49" data-note="Db3"><span>C#3</span></div>
+				<div class="key white" data-midi-code="50" data-note="D3"><span>D3</span></div>
+				<div class="key black" data-midi-code="51" data-note="Eb3"><span>Eb3</span></div>
+				<div class="key white" data-midi-code="52" data-note="E3"><span>E3</span></div>
+				<div class="key white" data-midi-code="53" data-note="F3"><span>F3</span></div>
+				<div class="key black" data-midi-code="54" data-note="Gb3"><span>F#3</span></div>
+				<div class="key white" data-midi-code="55" data-note="G3"><span>G3</span></div>
+				<div class="key black" data-midi-code="56" data-note="Ab3"><span>G#3</span></div>
+				<div class="key white" data-midi-code="57" data-note="A3"><span>A3</span></div>
+				<div class="key black" data-midi-code="58" data-note="Bb3"><span>Bb3</span></div>
+				<div class="key white" data-midi-code="59" data-note="B3"><span>B3</span></div>
+
+				<div class="key white" data-midi-code="60" data-note="C4"><span>C4</span></div>
+				<div class="key black" data-midi-code="61" data-note="Db4"><span>C#4</span></div>
+				<div class="key white" data-midi-code="62" data-note="D4"><span>D4</span></div>
+				<div class="key black" data-midi-code="63" data-note="Eb4"><span>Eb4</span></div>
+				<div class="key white" data-midi-code="64" data-note="E4"><span>E4</span></div>
+				<div class="key white" data-midi-code="65" data-note="F4"><span>F4</span></div>
+				<div class="key black" data-midi-code="66" data-note="Gb4"><span>F#4</span></div>
+				<div class="key white" data-midi-code="67" data-note="G4"><span>G4</span></div>
+				<div class="key black" data-midi-code="68" data-note="Ab4"><span>G#4</span></div>
+				<div class="key white" data-midi-code="69" data-note="A4"><span>A4</span></div>
+				<div class="key black" data-midi-code="70" data-note="Bb4"><span>Bb4</span></div>
+				<div class="key white" data-midi-code="71" data-note="B4"><span>B4</span></div>
+
+				<div class="key white" data-midi-code="72" data-note="C5"><span>C5</span></div>
+				<div class="key black" data-midi-code="73" data-note="Db5"><span>C#5</span></div>
+				<div class="key white" data-midi-code="74" data-note="D5"><span>D5</span></div>
+				<div class="key black" data-midi-code="75" data-note="Eb5"><span>Eb5</span></div>
+				<div class="key white" data-midi-code="76" data-note="E5"><span>E5</span></div>
+				<div class="key white" data-midi-code="77" data-note="F5"><span>F5</span></div>
+				<div class="key black" data-midi-code="78" data-note="Gb5"><span>F#5</span></div>
+				<div class="key white" data-midi-code="79" data-note="G5"><span>G5</span></div>
+				<div class="key black" data-midi-code="80" data-note="Ab5"><span>G#5</span></div>
+				<div class="key white" data-midi-code="81" data-note="A5"><span>A5</span></div>
+				<div class="key black" data-midi-code="82" data-note="Bb5"><span>Bb5</span></div>
+				<div class="key white" data-midi-code="83" data-note="B5"><span>B5</span></div>
+
+				<div class="key white" data-midi-code="84" data-note="C6"><span>C6</span></div>
+				<div class="key black" data-midi-code="85" data-note="Db6"><span>C#6</span></div>
+				<div class="key white" data-midi-code="86" data-note="D6"><span>D6</span></div>
+				<div class="key black" data-midi-code="87" data-note="Eb6"><span>Eb6</span></div>
+				<div class="key white" data-midi-code="88" data-note="E6"><span>E6</span></div>
+				<div class="key white" data-midi-code="89" data-note="F6"><span>F6</span></div>
+				<div class="key black" data-midi-code="90" data-note="Gb6"><span>F#6</span></div>
+				<div class="key white" data-midi-code="91" data-note="G6"><span>G6</span></div>
+				<div class="key black" data-midi-code="92" data-note="Ab6"><span>G#6</span></div>
+				<div class="key white" data-midi-code="93" data-note="A6"><span>A6</span></div>
+				<div class="key black" data-midi-code="94" data-note="Bb6"><span>Bb6</span></div>
+				<div class="key white" data-midi-code="95" data-note="B6"><span>B6</span></div>
+
+				<div class="key white" data-midi-code="96" data-note="C7"><span>C7</span></div>
+			</div>
+		</div>
+	</body>
 </html>
