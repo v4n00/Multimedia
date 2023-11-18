@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+		<style>
+			.canvasHolder {
+				display: flex;
+				justify-content: center;
+			}
+			#myCanvas {
+				border: 2px solid green;
+			}
+		</style>
+		<script>
+			window.onload = () => {
+				let submitBtn = document.getElementById('submitButton');
+				let textField = document.getElementById('inputText');
+				let alert = document.getElementById('alert');
+				let canvas = document.getElementById('myCanvas');
+				let ctx = canvas.getContext('2d');
+
+				let ch = canvas.height;
+				let cw = canvas.width;
+
+				let colors = 'red, yellow, green, blue, purple, magenta'.split(', ');
+
+				function drawSquares(n) {
+					ctx.clearRect(0, 0, canvas.width, canvas.height);
+					for (let i = n; i > 0; i--) {
+						ctx.beginPath();
+						ctx.fillStyle = colors[(i % colors.length) - 1];
+						ctx.fillRect(ch / 2 - i * 10, cw / 2 - i * 10, i * 20, i * 20);
+						ctx.stroke();
+					}
+				}
+
+				submitBtn.addEventListener('click', () => {
+					let number = parseInt(textField.value);
+					if (number < 1 || number > 10) {
+						alert.style.display = '';
+					} else {
+						alert.style.display = 'none';
+						drawSquares(number);
+					}
+				});
+			};
+		</script>
+	</head>
+	<body>
+		<div class="canvasHolder">
+			<canvas width="600" height="600" id="myCanvas"></canvas>
+		</div>
+		<div class="container">
+			<div class="row">
+				<input type="number" class="col-lg-9 col-md-6 col-12" id="inputText" placeholder="1-10" />
+				<button type="button" class="btn btn-danger col-lg-3 col-md-6 col-12" id="submitButton">Submit</button>
+			</div>
+			<div class="alert alert-danger" id="alert" role="alert" style="display: none">Invalid Input!</div>
+		</div>
+	</body>
+</html>
