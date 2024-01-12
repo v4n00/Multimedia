@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!--
+
+3p) Write a responsive web application that displays a textbox accepting only positive numeric input and three buttons. If the screen is medium, the input should be span across 6 column and the buttons on 2 columns each. If the screen is smaller, they should have equal sizes of 3 columns each. The elements must have Bootstrap default styling.
+1.5p) Type a number in the input and press a button. Each button is associated with drawing a shape from the following list: square, circle, line.
+1.5p) When a shape is selected, start a speech synthesizer that should say: "I will draw a new <selected shape>" if the textbox has a valid value, or "Please input value" otherwise.
+1p) When the square is selected, draw on a canvas of size 800x800 a green square with the width of whatever number was set on the input. The square must be exactly in the center of the canvas.
+1p) When the circle is selected, draw a pink circle with a radius equal to the same number, also in the center.
+1p) When the line is selected, draw a red dashed line from the top-right corner to the middle of the bottom margin, with a thickness equal to the number in the textbox.
+
+-->
+
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Exam</title>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+	</head>
+	<body>
+		<div class="container text-center">
+			<div class="row">
+				<div class="col-3 col-md-6">
+					<input class="form-control" type="number" min="0" id="input" />
+				</div>
+				<div class="col-3 col-md-2 d-grid">
+					<button type="button" class="btn btn-primary" id="square">Square</button>
+				</div>
+				<div class="col-3 col-md-2 d-grid">
+					<button type="button" class="btn btn-primary" id="circle">Circle</button>
+				</div>
+				<div class="col-3 col-md-2 d-grid">
+					<button type="button" class="btn btn-primary" id="line">Line</button>
+				</div>
+			</div>
+		</div>
+		<canvas id="canvas" style="border: 1px black solid" width="800" height="800"></canvas>
+		<script>
+			let canvas = document.getElementById('canvas');
+			let ctx = canvas.getContext('2d');
+			let input = document.getElementById('input');
+			let cw = canvas.width;
+			let ch = canvas.height;
+			input.value = 100;
+
+			function drawAndSpeak(shape, fn) {
+				const value = input.value;
+				const speech = new SpeechSynthesisUtterance();
+				if (value && value > 0) {
+					speech.text = `I will draw a new ${shape}`;
+					window.speechSynthesis.speak(speech);
+					ctx.save();
+					fn(value);
+					ctx.restore();
+				} else {
+					speech.text = 'Please input a value';
+					window.speechSynthesis.speak(speech);
+				}
+			}
+
+			function drawSquare(width) {
+				let xy = (cw - width) / 2;
+				ctx.beginPath();
+				ctx.fillStyle = '#0F0';
+				ctx.fillRect(xy, xy, width, width);
+				ctx.stroke();
+			}
+
+			function drawCircle(radius) {
+				let xy = cw / 2;
+				ctx.beginPath();
+				ctx.fillStyle = '#FFC0CB';
+				ctx.strokeStyle = '#FFC0CB';
+				ctx.arc(xy, xy, radius, 0, 2 * Math.PI);
+				ctx.fill();
+				ctx.stroke();
+			}
+
+			function drawLine(width) {
+				ctx.beginPath();
+				ctx.strokeStyle = '#F00';
+				ctx.setLineDash([5, 15]);
+				ctx.lineWidth = width;
+				ctx.moveTo(ch, 0);
+				ctx.lineTo(ch / 2, cw);
+				ctx.stroke();
+			}
+			document.getElementById('square').addEventListener('click', () => {
+				drawAndSpeak('square', drawSquare);
+			});
+			document.getElementById('circle').addEventListener('click', () => {
+				drawAndSpeak('circle', drawCircle);
+			});
+			document.getElementById('line').addEventListener('click', () => {
+				drawAndSpeak('line', drawLine);
+			});
+		</script>
+	</body>
+</html>

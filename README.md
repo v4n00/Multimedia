@@ -18,3 +18,6 @@ Also I had a project for this class that can be found [here](https://github.com/
 10. [Seminar 10 - Hangman game](https://v4n00.github.io/Multimedia/Seminar%2010/index.html)
 11. [Seminar 11 - Map API](https://v4n00.github.io/Multimedia/Seminar%2011/index.html)
 12. [Seminar 12 - Video API](https://v4n00.github.io/Multimedia/Seminar%2012/index.html)
+13. [Exam problems](./Exam/)
+    1. [Subject 1 - Map API](https://v4n00.github.io/Multimedia/Exam/exam1.html)
+    2. [Subject 2 - Canvas API](https://v4n00.github.io/Multimedia/Exam/exam2.html)
