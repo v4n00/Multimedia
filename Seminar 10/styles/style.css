@@ -1,9 +1,0 @@
-#game {
-	border: 2px solid black;
-	margin: 20px;
-}
-
-.canvasWrapper {
-	display: flex;
-	justify-content: center;
-}
