@@ -20,3 +20,5 @@ Also I had a project for this class that can be found [here](https://github.com/
 12. [Exam problems](./Exam/)
     1. [Subject 1 - Map API](https://v4n00.github.io/Multimedia/Exam/exam1.html)
     2. [Subject 2 - Canvas API](https://v4n00.github.io/Multimedia/Exam/exam2.html)
+    3. [Subject 3 - MIDI API](https://v4n00.github.io/Multimedia/Exam/exam3.html)
+    4. [Subject 3 - Animation + Canvas API](https://v4n00.github.io/Multimedia/Exam/exam4.html)

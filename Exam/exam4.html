@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!--
+
+Write a web application that displays a 800x600 canvas, centered horizontally. The background color of the entire page should be #87CEFA. On the canvas, draw a 9x9 blue square in the top-left corner.
+When pressing the Space key, the square should move towards the bottom right, equally distanced. When colliding with a margin of the canvas, the square should change its direction towards the opposite margin.
+
+-->
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Exam</title>
+		<style>
+			body {
+				background-color: #87cefa;
+				display: flex;
+				justify-content: center;
+				height: 100vh;
+				margin: 0;
+			}
+			canvas {
+				border: 1px solid black;
+				align-self: center;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="canvas" width="800" height="600"></canvas>
+		<script>
+			const canvas = document.getElementById('canvas');
+			const ctx = canvas.getContext('2d');
+			let x = 0;
+			let y = 0;
+			let dx = 9;
+			let dy = 9;
+
+			function drawSquare() {
+				ctx.clearRect(0, 0, canvas.width, canvas.height);
+				ctx.fillStyle = 'blue';
+				ctx.fillRect(x, y, 9, 9);
+			}
+
+			function updatePosition() {
+				if (x + dx > canvas.width - 9 || x + dx < 0) {
+					dx = -dx;
+				}
+				if (y + dy > canvas.height - 9 || y + dy < 0) {
+					dy = -dy;
+				}
+				x += dx;
+				y += dy;
+				drawSquare();
+			}
+
+			document.addEventListener('keydown', function (e) {
+				if (e.code === 'Space') {
+					updatePosition();
+				}
+			});
+
+			drawSquare();
+		</script>
+	</body>
+</html>
