@@ -17,7 +17,7 @@ Also I had a project for this class that can be found [here](https://github.com/
 9. [Seminar 9 - Speech Recognition](https://v4n00.github.io/Multimedia/Seminar%209/index.html)
 10. [Seminar 10 - Map API](https://v4n00.github.io/Multimedia/Seminar%2010/index.html)
 11. [Seminar 11 - Video API](https://v4n00.github.io/Multimedia/Seminar%2011/index.html)
-12. [Exam problems](./Exam/)
+12. [Exam problems](https://github.com/v4n00/Multimedia/tree/master/Exam)
     1. [Subject 1 - Map API](https://v4n00.github.io/Multimedia/Exam/exam1.html)
     2. [Subject 2 - Canvas API](https://v4n00.github.io/Multimedia/Exam/exam2.html)
     3. [Subject 3 - MIDI API](https://v4n00.github.io/Multimedia/Exam/exam3.html)
