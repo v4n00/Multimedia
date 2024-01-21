@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!--
+2p) Write a web application that displays a textbox and a blue button, using Bootstrap styling. The number of columns fpr the Bootstrap grid should be defined as follows: 
+Textbox: Large 4 Medium 3 Extra small 3, Button Large 2 Medium 5 Extra small 3
+1p) The input should only accept integer values between 1 and 10. When clicking the button, if the value of the inpuOs invalid, add a validation error class on the input using Bootstrap.
+1p) If the values inside the input is valid, disable the button and the input and change the button color to green.
+2p) Request access to users location. After the ccessis grant., draw a circle marker at the user location and another circle marker at the same longitude, but at a latrtude of 0 degrees (on the Equatog. Draw 2 lines: one that will mark the Equator (coordinates:[0, -180], [0, 180]) with a green line, and one between the positions where the 2 markers are display., with the default blue line. Set the view to fit the bounds of the Equator line.
+3p) Create an animation that, each 10 milliseconds, will move towaMs the east the marker placed on the Equator with x/10 of a degree, where x is the value mood. in the input When the marker reaches 180 degrees of longitude, continue the animation by moving the marker to -180 degrees. On each movement of the marker, redraw the line between the marker and the current position of the user.
+-->
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Exam</title>
+		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+		<style>
+			#map {
+				height: 400px;
+			}
+			.btn-blue {
+				background-color: blue;
+				color: white;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container mt-4">
+			<div class="row">
+				<div class="col-lg-4 col-md-3 col-xs-3">
+					<input type="number" class="form-control" id="inputNumber" placeholder="Enter a number (1-10)" />
+				</div>
+				<div class="col-lg-2 col-md-5 col-xs-3">
+					<button class="btn btn-blue" id="submitBtn">Submit</button>
+				</div>
+			</div>
+			<div id="map" class="mt-3"></div>
+		</div>
+
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+		<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+		<script>
+			document.getElementById('submitBtn').addEventListener('click', function () {
+				let input = document.getElementById('inputNumber');
+				let value = parseInt(input.value);
+
+				if (isNaN(value) || value < 1 || value > 10) {
+					input.classList.add('is-invalid');
+				} else {
+					input.classList.remove('is-invalid');
+					input.disabled = true;
+					this.disabled = true;
+					this.classList.remove('btn-blue');
+					this.classList.add('btn-success');
+					initializeMap(value);
+				}
+			});
+
+			let map;
+			let userMarker, equatorMarker;
+			let lineBetweenMarkers;
+
+			function initializeMap(inputValue) {
+				map = L.map('map').setView([0, 0], 2);
+				L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+					attribution: '© OpenStreetMap contributors',
+				}).addTo(map);
+
+				L.polyline(
+					[
+						[0, -180],
+						[0, 180],
+					],
+					{ color: 'green' }
+				).addTo(map);
+
+				if (navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition(function (position) {
+						let userLocation = [position.coords.latitude, position.coords.longitude];
+						userMarker = L.circleMarker(userLocation).addTo(map);
+
+						let equatorLocation = [0, position.coords.longitude];
+						equatorMarker = L.circleMarker(equatorLocation, { color: 'blue' }).addTo(map);
+
+						lineBetweenMarkers = L.polyline([userLocation, equatorLocation], { color: 'blue' }).addTo(map);
+						map.fitBounds([
+							[0, -180],
+							[0, 180],
+						]);
+
+						animateEquatorMarker(inputValue);
+					});
+				}
+			}
+
+			function animateEquatorMarker(step) {
+				setInterval(function () {
+					let currentLng = equatorMarker.getLatLng().lng;
+					let newLng = currentLng + step / 10;
+					if (newLng > 180) {
+						newLng = -180 + (newLng - 180);
+					}
+					equatorMarker.setLatLng([0, newLng]);
+					lineBetweenMarkers.setLatLngs([userMarker.getLatLng(), equatorMarker.getLatLng()]);
+				}, 10);
+			}
+		</script>
+	</body>
+</html>

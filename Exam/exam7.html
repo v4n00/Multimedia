@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<!--
+2p) Write a web application that displays a canvas of 800 x 6OO pixels, three textboxes and a button, using Bootstrap styling. The canvas should be centered on the screen. The number of columns or the Bootstrap grid should be defined as follows: 
+Textboxes: Large 4 Medium 3 Small 2, Button Large 2 Medium 3 Small 4
+1p) The inputs should only accept integer values, between 0 and 255. They represent the RGB channels of a color. When clicking the button, if the value of any of the inputs is invalid, add a validation error class on the respective input using Bootstrap.
+1p) If the values inside the inputs are valid, Or a rectangle with a size 400 x 200 pixels (width x height) centered on the canvas, with a black outline.
+3p) Create an animation that will apply the following rules:
+- The rectangle should be filled initially with the color value computed from the 3 values tram the textboxes
+- Each 50 milliseconds, the values of each channel should be modified as such:
+    - the value of the red channel should increase by 1 unit
+    - the value of the blue channel should decrease by 1 unit
+    - the value of the blue channel will be the absolute difference between the red and the green channels.
+    - If the value of the channel exceeds a limit, start again from the other end of the interval
+        - if red reaches 255, the next frame should use a value of 0 for red
+        - if green reaches 0, the next frame should use a value of 255 for green
+- The rest of the canvas should be the additive primary color of the current color of the rectangle (both colors added up should always result in white) 
+2p) On each frame of the animation, shrink and grow the rectangle by 1 pixel on both width and height. The minimum height of the rectangle must be 10 and the maximum height must be 300.
+-->
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Exam</title>
+		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+		<style>
+			canvas {
+				margin: auto;
+				display: block;
+				border: 1px solid black;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container mt-4">
+			<div class="row">
+				<div class="col-lg-4 col-md-3 col-sm-2">
+					<input type="number" class="form-control" id="red" placeholder="Red (0-255)" />
+				</div>
+				<div class="col-lg-4 col-md-3 col-sm-2">
+					<input type="number" class="form-control" id="green" placeholder="Green (0-255)" />
+				</div>
+				<div class="col-lg-4 col-md-3 col-sm-2">
+					<input type="number" class="form-control" id="blue" placeholder="Blue (0-255)" />
+				</div>
+				<div class="col-lg-2 col-md-3 col-sm-4">
+					<button class="btn btn-primary" id="startButton">Start</button>
+				</div>
+			</div>
+			<canvas id="myCanvas" width="800" height="600"></canvas>
+		</div>
+
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+		<script>
+			document.getElementById('startButton').addEventListener('click', function () {
+				let red = document.getElementById('red');
+				let green = document.getElementById('green');
+				let blue = document.getElementById('blue');
+
+				if (validateInput(red) && validateInput(green) && validateInput(blue)) {
+					startAnimation(parseInt(red.value), parseInt(green.value), parseInt(blue.value));
+				}
+			});
+
+			function validateInput(input) {
+				let value = parseInt(input.value);
+				if (isNaN(value) || value < 0 || value > 255) {
+					input.classList.add('is-invalid');
+					return false;
+				} else {
+					input.classList.remove('is-invalid');
+					return true;
+				}
+			}
+
+			function startAnimation(red, green, blue) {
+				let canvas = document.getElementById('myCanvas');
+				let ctx = canvas.getContext('2d');
+				let rectWidth = 400,
+					rectHeight = 200;
+				let growing = true;
+
+				setInterval(() => {
+					ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+					red = (red + 1) % 256;
+					green = green === 0 ? 255 : green - 1;
+					blue = Math.abs(red - green);
+
+					let x = (canvas.width - rectWidth) / 2;
+					let y = (canvas.height - rectHeight) / 2;
+					ctx.fillStyle = `rgb(${red}, ${green}, ${blue})`;
+					ctx.fillRect(x, y, rectWidth, rectHeight);
+					ctx.strokeRect(x, y, rectWidth, rectHeight);
+
+					ctx.fillStyle = `rgb(${255 - red}, ${255 - green}, ${255 - blue})`;
+					ctx.fillRect(0, 0, canvas.width, y);
+					ctx.fillRect(0, y + rectHeight, canvas.width, canvas.height - y - rectHeight);
+					ctx.fillRect(0, y, x, rectHeight);
+					ctx.fillRect(x + rectWidth, y, canvas.width - x - rectWidth, rectHeight);
+
+					if (growing) {
+						rectWidth += 2;
+						rectHeight += 2;
+						if (rectHeight >= 300) growing = false;
+					} else {
+						rectWidth -= 2;
+						rectHeight -= 2;
+						if (rectHeight <= 10) growing = true;
+					}
+				}, 50);
+			}
+		</script>
+	</body>
+</html>
